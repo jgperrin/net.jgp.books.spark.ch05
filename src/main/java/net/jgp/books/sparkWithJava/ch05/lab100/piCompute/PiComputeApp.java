@@ -1,4 +1,4 @@
-package net.jgp.books.sparkWithJava.ch00;
+package net.jgp.books.sparkWithJava.ch05.lab100.piCompute;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -7,16 +7,16 @@ import org.apache.spark.sql.SparkSession;
 /**
  * CSV ingestion in a dataframe.
  * 
- * @author jperrin
+ * @author jgp
  */
-public class MyApp {
+public class PiComputeApp {
 
 	/**
 	 * main() is your entry point to the application. 
 	 * @param args
 	 */
     public static void main(String[] args) {
-        MyApp app = new MyApp();
+        PiComputeApp app = new PiComputeApp();
         app.start();
     }
 
