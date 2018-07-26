@@ -1,11 +1,9 @@
-package net.jgp.books.sparkWithJava.ch05.lab100.piCompute;
+package net.jgp.books.sparkWithJava.ch05.lab101.piComputeLambda;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.spark.api.java.function.MapFunction;
-import org.apache.spark.api.java.function.ReduceFunction;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
@@ -16,35 +14,9 @@ import org.apache.spark.sql.SparkSession;
  * 
  * @author jgp
  */
-public class PiComputeApp implements Serializable {
-  private static final long serialVersionUID = -1546L;
+public class PiComputeLambdaApp implements Serializable {
+  private static final long serialVersionUID = -1547L;
   private static long counter = 0;
-
-  private final class DotMapper
-      implements MapFunction<Row, Integer> {
-    private static final long serialVersionUID = 38446L;
-
-    @Override
-    public Integer call(Row r) throws Exception {
-      double x = Math.random() * 2 - 1;
-      double y = Math.random() * 2 - 1;
-      counter++;
-      if (counter % 1000 == 0) {
-        System.out.println("" + counter + " operations done so far");
-      }
-      return (x * x + y * y <= 1) ? 1 : 0;
-    }
-  }
-
-  private final class DotReducer implements ReduceFunction<Integer> {
-    private static final long serialVersionUID = 12859L;
-
-    @Override
-    public Integer call(Integer x, Integer y) throws Exception {
-      return x + y;
-    }
-
-  }
 
   /**
    * main() is your entry point to the application.
@@ -52,7 +24,7 @@ public class PiComputeApp implements Serializable {
    * @param args
    */
   public static void main(String[] args) {
-    PiComputeApp app = new PiComputeApp();
+    PiComputeLambdaApp app = new PiComputeLambdaApp();
     app.start(100);
   }
 
@@ -77,10 +49,18 @@ public class PiComputeApp implements Serializable {
         .toDF();
     System.out.println("Initial dataframe built");
     Dataset<Integer> dotsDs = incrementalDf
-        .map(new DotMapper(), Encoders.INT());
+        .map((status) -> {
+          double x = Math.random() * 2 - 1;
+          double y = Math.random() * 2 - 1;
+          counter++;
+          if (counter % 1000 == 0) {
+            System.out.println("" + counter + " operations done so far");
+          }
+          return (x * x + y * y <= 1) ? 1 : 0;
+        }, Encoders.INT());
     System.out.println("Mapping dots done");
 
-    int count = dotsDs.reduce(new DotReducer());
+    int count = dotsDs.reduce((x, y) -> x + y);
 
     System.out.println("Pi is roughly " + 4.0 * count / n);
 
