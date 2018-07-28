@@ -1,4 +1,4 @@
-package net.jgp.books.sparkWithJava.ch05.lab100.piCompute;
+package net.jgp.books.sparkWithJava.ch05.lab200.piComputeCluster;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import org.apache.spark.sql.SparkSession;
  * 
  * @author jgp
  */
-public class PiComputeApp implements Serializable {
+public class PiComputeClusterApp implements Serializable {
   private static final long serialVersionUID = -1546L;
   private static long counter = 0;
 
@@ -59,7 +59,7 @@ public class PiComputeApp implements Serializable {
    * @param args
    */
   public static void main(String[] args) {
-    PiComputeApp app = new PiComputeApp();
+    PiComputeClusterApp app = new PiComputeClusterApp();
     app.start(100);
   }
 
@@ -70,7 +70,8 @@ public class PiComputeApp implements Serializable {
     SparkSession spark = SparkSession
         .builder()
         .appName("JavaSparkPi")
-        .master("local")
+        .master("spark://un:7077")
+        .config("spark.executor.memory", "32g")
         .getOrCreate();
 
     int n = 100000 * slices;
