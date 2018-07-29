@@ -60,7 +60,7 @@ public class PiComputeClusterApp implements Serializable {
    */
   public static void main(String[] args) {
     PiComputeClusterApp app = new PiComputeClusterApp();
-    app.start(100);
+    app.start(1);
   }
 
   /**
@@ -69,9 +69,10 @@ public class PiComputeClusterApp implements Serializable {
   private void start(int slices) {
     SparkSession spark = SparkSession
         .builder()
-        .appName("JavaSparkPi")
+        .appName("JavaSparkPi on a cluster")
         .master("spark://un:7077")
-        .config("spark.executor.memory", "32g")
+        .config("spark.executor.memory", "4g")
+        .config("spark.jars", "/home/jgp/.m2/repository/net/jgp/books/sparkWithJava-chapter05/1.0.0-SNAPSHOT/sparkWithJava-chapter05-1.0.0-SNAPSHOT.jar")
         .getOrCreate();
 
     int n = 100000 * slices;
