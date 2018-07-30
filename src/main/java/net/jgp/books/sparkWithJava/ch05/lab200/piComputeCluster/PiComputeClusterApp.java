@@ -22,6 +22,7 @@ public class PiComputeClusterApp implements Serializable {
 
   /**
    * Mapper class, creates the map of dots
+   * 
    * @author jgp
    */
   private final class DotMapper
@@ -42,6 +43,7 @@ public class PiComputeClusterApp implements Serializable {
 
   /**
    * Reducer class, reduces the map of dots
+   * 
    * @author jgp
    */
   private final class DotReducer implements ReduceFunction<Integer> {
@@ -72,7 +74,9 @@ public class PiComputeClusterApp implements Serializable {
         .appName("JavaSparkPi on a cluster")
         .master("spark://un:7077")
         .config("spark.executor.memory", "4g")
-        .config("spark.jars", "/home/jgp/.m2/repository/net/jgp/books/sparkWithJava-chapter05/1.0.0-SNAPSHOT/sparkWithJava-chapter05-1.0.0-SNAPSHOT.jar")
+        .config(
+            "spark.jars",
+            "/home/jgp/.m2/repository/net/jgp/books/sparkWithJava-chapter05/1.0.0-SNAPSHOT/sparkWithJava-chapter05-1.0.0-SNAPSHOT.jar")
         .getOrCreate();
 
     int n = 100000 * slices;
