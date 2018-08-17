@@ -77,7 +77,7 @@ public class PiComputeApp implements Serializable {
     SparkSession spark = SparkSession
         .builder()
         .appName("Spark Pi")
-        .master("local")
+        .master("local[*]")
         .getOrCreate();
 
     long t1 = System.currentTimeMillis();

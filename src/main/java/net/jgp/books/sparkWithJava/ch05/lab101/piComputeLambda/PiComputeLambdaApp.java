@@ -40,7 +40,7 @@ public class PiComputeLambdaApp implements Serializable {
     SparkSession spark = SparkSession
         .builder()
         .appName("Spark Pi with lambdas")
-        .master("local")
+        .master("local[*]")
         .getOrCreate();
 
     long t1 = System.currentTimeMillis();
