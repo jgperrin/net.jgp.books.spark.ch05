@@ -75,9 +75,8 @@ public class PiComputeClusterSubmitJobApp implements Serializable {
 
     long t0 = System.currentTimeMillis();
     SparkSession spark = SparkSession
-        .builder()
+        .builder() // no master!
         .appName("JavaSparkPi on a cluster")
-        .master("whatever value, spark-submit will override it")
         .config("spark.executor.memory", "4g")
         .config(
             "spark.jars",

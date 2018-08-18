@@ -74,7 +74,7 @@ public class PiComputeApp implements Serializable {
         + " darts, ready? Stay away from the target!");
 
     long t0 = System.currentTimeMillis();
-    SparkSession spark = SparkSession
+    SparkSession spark = SparkSession   
         .builder()
         .appName("Spark Pi")
         .master("local[*]")
