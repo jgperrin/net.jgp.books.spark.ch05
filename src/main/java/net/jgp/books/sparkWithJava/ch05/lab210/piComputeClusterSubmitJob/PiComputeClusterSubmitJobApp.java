@@ -1,4 +1,4 @@
-package net.jgp.books.sparkWithJava.ch05.lab200.piComputeCluster;
+package net.jgp.books.sparkWithJava.ch05.lab210.piComputeClusterSubmitJob;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import org.apache.spark.sql.SparkSession;
  * 
  * @author jgp
  */
-public class PiComputeClusterApp implements Serializable {
+public class PiComputeClusterSubmitJobApp implements Serializable {
   private static final long serialVersionUID = -1546L;
   private static long counter = 0;
 
@@ -61,7 +61,7 @@ public class PiComputeClusterApp implements Serializable {
    * @param args
    */
   public static void main(String[] args) {
-    PiComputeClusterApp app = new PiComputeClusterApp();
+    PiComputeClusterSubmitJobApp app = new PiComputeClusterSubmitJobApp();
     app.start(1);
   }
 
@@ -77,7 +77,7 @@ public class PiComputeClusterApp implements Serializable {
     SparkSession spark = SparkSession
         .builder()
         .appName("JavaSparkPi on a cluster")
-        .master("spark://un:7077")
+        .master("whatever value, spark-submit will override it")
         .config("spark.executor.memory", "4g")
         .config(
             "spark.jars",
