@@ -74,14 +74,14 @@ public class PiComputeClusterSubmitJobApp implements Serializable {
         + " darts, ready? Stay away from the target!");
 
     long t0 = System.currentTimeMillis();
-    SparkSession spark = SparkSession
-        .builder() // no master!
-        .appName("JavaSparkPi on a cluster")
-        .config("spark.executor.memory", "4g")
-        .config(
-            "spark.jars",
-            "/home/jgp/.m2/repository/net/jgp/books/sparkWithJava-chapter05/1.0.0-SNAPSHOT/sparkWithJava-chapter05-1.0.0-SNAPSHOT.jar")
-        .getOrCreate();
+SparkSession spark = SparkSession
+    .builder() // no master!
+    .appName("JavaSparkPi on a cluster")
+    .config("spark.executor.memory", "4g")
+//    .config(
+//        "spark.jars",
+//        "/home/jgp/.m2/repository/net/jgp/books/sparkWithJava-chapter05/1.0.0-SNAPSHOT/sparkWithJava-chapter05-1.0.0-SNAPSHOT.jar")
+    .getOrCreate();
 
     long t1 = System.currentTimeMillis();
     System.out.println("Session initialized in " + (t1 - t0) + " ms");
