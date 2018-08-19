@@ -76,11 +76,8 @@ public class PiComputeClusterSubmitJobApp implements Serializable {
     long t0 = System.currentTimeMillis();
 SparkSession spark = SparkSession
     .builder() // no master!
-    .appName("JavaSparkPi on a cluster")
+    .appName("JavaSparkPi on a cluster (via spark-submit)")
     .config("spark.executor.memory", "4g")
-//    .config(
-//        "spark.jars",
-//        "/home/jgp/.m2/repository/net/jgp/books/sparkWithJava-chapter05/1.0.0-SNAPSHOT/sparkWithJava-chapter05-1.0.0-SNAPSHOT.jar")
     .getOrCreate();
 
     long t1 = System.currentTimeMillis();
