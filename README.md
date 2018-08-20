@@ -2,7 +2,7 @@ The examples in this repository are support to the **Spark with Java** book by J
 
 # Spark with Java - chapter 5
 
-Welcome to Spark with Java, chapter 5. This chapter is about...
+Welcome to Spark with Java, chapter 5. This chapter is about deployment of your application on a cluster. The example used here is the approximation of Pi.
 
 ---
 
