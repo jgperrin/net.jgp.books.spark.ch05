@@ -64,7 +64,7 @@ public class PiComputeClusterApp implements Serializable {
    */
   public static void main(String[] args) {
     PiComputeClusterApp app = new PiComputeClusterApp();
-    app.start(100);
+    app.start(10);
   }
 
   /**
