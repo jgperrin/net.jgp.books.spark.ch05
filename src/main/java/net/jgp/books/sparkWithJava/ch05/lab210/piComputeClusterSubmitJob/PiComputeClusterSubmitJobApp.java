@@ -14,6 +14,8 @@ import org.apache.spark.sql.SparkSession;
 /**
  * Compute Pi on a cluster.
  * 
+ * It is not recommended to run this application from the IDE.
+ * 
  * @author jgp
  */
 public class PiComputeClusterSubmitJobApp implements Serializable {
@@ -74,11 +76,11 @@ public class PiComputeClusterSubmitJobApp implements Serializable {
         + " darts, ready? Stay away from the target!");
 
     long t0 = System.currentTimeMillis();
-SparkSession spark = SparkSession
-    .builder() // no master!
-    .appName("JavaSparkPi on a cluster (via spark-submit)")
-    .config("spark.executor.memory", "4g")
-    .getOrCreate();
+    SparkSession spark = SparkSession
+        .builder() // no master!
+        .appName("JavaSparkPi on a cluster (via spark-submit)")
+        .config("spark.executor.memory", "4g")
+        .getOrCreate();
 
     long t1 = System.currentTimeMillis();
     System.out.println("Session initialized in " + (t1 - t0) + " ms");
