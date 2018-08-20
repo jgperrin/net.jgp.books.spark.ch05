@@ -73,6 +73,8 @@
           <target>${java.version}</target>
         </configuration>
       </plugin>
+
+      <!-- Build a jar containing the source code -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
@@ -87,6 +89,8 @@
           </execution>
         </executions>
       </plugin>
+
+      <!-- Set the application -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
@@ -101,22 +105,198 @@
           </arguments>
         </configuration>
       </plugin>
+
+      <!-- Build the uber jar in the package phase -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.1.1</version>
         <executions>
           <execution>
-            <phase>deploy</phase>
+            <phase>package</phase>
             <goals>
               <goal>shade</goal>
             </goals>
             <configuration>
               <minimizeJar>true</minimizeJar>
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+              <shadedClassifierName>uber</shadedClassifierName>
               <artifactSet>
                 <excludes>
                   <exclude>org.apache.spark</exclude>
                   <exclude>org.apache.hadoop</exclude>
+                  <exclude>org.apache.parquet</exclude>
+                  <exclude>org.apache.avro</exclude>
+                  <exclude>*:commons-lang3</exclude>
+                  <exclude>*:JavaEWAH</exclude>
+                  <exclude>*:RoaringBitmap</exclude>
+                  <exclude>*:ST4</exclude>
+                  <exclude>*:activation</exclude>
+                  <exclude>*:aircompressor</exclude>
+                  <exclude>*:antlr</exclude>
+                  <exclude>*:antlr-runtime</exclude>
+                  <exclude>*:antlr4-runtime</exclude>
+                  <exclude>*:aopalliance</exclude>
+                  <exclude>*:aopalliance-repackaged</exclude>
+                  <exclude>*:apache-log4j-extras</exclude>
+                  <exclude>*:apacheds-i18n</exclude>
+                  <exclude>*:apacheds-kerberos-codec</exclude>
+                  <exclude>*:api-asn1-api</exclude>
+                  <exclude>*:api-util</exclude>
+                  <exclude>*:arpack_combined_all</exclude>
+                  <exclude>*:arrow-format</exclude>
+                  <exclude>*:arrow-memory</exclude>
+                  <exclude>*:arrow-vector</exclude>
+                  <exclude>*:automaton</exclude>
+                  <exclude>*:base64</exclude>
+                  <exclude>*:bcprov-jdk15on</exclude>
+                  <exclude>*:bonecp</exclude>
+                  <exclude>*:breeze-macros</exclude>
+                  <exclude>*:breeze</exclude>
+                  <exclude>*:calcite-avatica</exclude>
+                  <exclude>*:calcite-core</exclude>
+                  <exclude>*:calcite-linq4j</exclude>
+                  <exclude>*:chill-java</exclude>
+                  <exclude>*:chill_${scala.version}</exclude>
+                  <exclude>*:commons-beanutils</exclude>
+                  <exclude>*:commons-beanutils-core</exclude>
+                  <exclude>*:commons-cli</exclude>
+                  <exclude>*:commons-codec</exclude>
+                  <exclude>*:commons-collections</exclude>
+                  <exclude>*:commons-compiler</exclude>
+                  <exclude>*:commons-compress</exclude>
+                  <exclude>*:commons-configuration</exclude>
+                  <exclude>*:commons-crypto</exclude>
+                  <exclude>*:commons-dbcp</exclude>
+                  <exclude>*:commons-digester</exclude>
+                  <exclude>*:commons-httpclient</exclude>
+                  <exclude>*:commons-io</exclude>
+                  <exclude>*:commons-lang</exclude>
+                  <exclude>*:commons-logging</exclude>
+                  <exclude>*:commons-math3</exclude>
+                  <exclude>*:commons-net</exclude>
+                  <exclude>*:commons-pool</exclude>
+                  <exclude>*:compress-lzf</exclude>
+                  <exclude>*:core</exclude>
+                  <exclude>*:curator-client</exclude>
+                  <exclude>*:curator-framework</exclude>
+                  <exclude>*:curator-recipes</exclude>
+                  <exclude>*:datanucleus-api-jdo</exclude>
+                  <exclude>*:datanucleus-core</exclude>
+                  <exclude>*:datanucleus-rdbms</exclude>
+                  <exclude>*:derby</exclude>
+                  <exclude>*:eigenbase-properties</exclude>
+                  <exclude>*:flatbuffers</exclude>
+                  <exclude>*:generex</exclude>
+                  <exclude>*:gson</exclude>
+                  <exclude>*:guava</exclude>
+                  <exclude>*:guice</exclude>
+                  <exclude>*:guice-servlet</exclude>
+                  <exclude>*:hive-beeline</exclude>
+                  <exclude>*:hive-cli</exclude>
+                  <exclude>*:hive-exec</exclude>
+                  <exclude>*:hive-jdbc</exclude>
+                  <exclude>*:hive-metastore</exclude>
+                  <exclude>*:hk2-api</exclude>
+                  <exclude>*:hk2-locator</exclude>
+                  <exclude>*:hk2-utils</exclude>
+                  <exclude>*:hppc</exclude>
+                  <exclude>*:htrace-core</exclude>
+                  <exclude>*:httpclient</exclude>
+                  <exclude>*:httpcore</exclude>
+                  <exclude>*:ivy</exclude>
+                  <exclude>*:jackson-*</exclude>
+                  <exclude>*:janino</exclude>
+                  <exclude>*:java-xmlbuilder</exclude>
+                  <exclude>*:javassist</exclude>
+                  <exclude>*:javax.annotation-api</exclude>
+                  <exclude>*:javax.inject</exclude>
+                  <exclude>*:javax.servlet-api</exclude>
+                  <exclude>*:javax.ws.rs-api</exclude>
+                  <exclude>*:javolution</exclude>
+                  <exclude>*:jaxb-api</exclude>
+                  <exclude>*:jcl-over-slf4j</exclude>
+                  <exclude>*:jdo-api</exclude>
+                  <exclude>*:jersey-client</exclude>
+                  <exclude>*:jersey-common</exclude>
+                  <exclude>*:jersey-container-servlet</exclude>
+                  <exclude>*:jersey-container-servlet-core</exclude>
+                  <exclude>*:jersey-guava</exclude>
+                  <exclude>*:jersey-media-jaxb</exclude>
+                  <exclude>*:jersey-server</exclude>
+                  <exclude>*:jets3t</exclude>
+                  <exclude>*:jetty</exclude>
+                  <exclude>*:jetty-util</exclude>
+                  <exclude>*:jline</exclude>
+                  <exclude>*:joda-time</exclude>
+                  <exclude>*:jodd-core</exclude>
+                  <exclude>*:jpam</exclude>
+                  <exclude>*:json4s-ast</exclude>
+                  <exclude>*:json4s-core</exclude>
+                  <exclude>*:json4s-jackson</exclude>
+                  <exclude>*:jsp-api</exclude>
+                  <exclude>*:jsr305</exclude>
+                  <exclude>*:jta</exclude>
+                  <exclude>*:jtransforms</exclude>
+                  <exclude>*:jul-to-slf4j</exclude>
+                  <exclude>*:kryo-shaded</exclude>
+                  <exclude>*:kubernetes-client</exclude>
+                  <exclude>*:kubernetes-model</exclude>
+                  <exclude>*:leveldbjni-all</exclude>
+                  <exclude>*:libfb303</exclude>
+                  <exclude>*:libthrift</exclude>
+                  <exclude>*:log4j</exclude>
+                  <exclude>*:logging-interceptor</exclude>
+                  <exclude>*:lz4-java</exclude>
+                  <exclude>*:machinist</exclude>
+                  <exclude>*:macro-compat_2.11</exclude>
+                  <exclude>*:mesos-1.4.0-shaded-protobuf</exclude>
+                  <exclude>*:metrics-core</exclude>
+                  <exclude>*:metrics-graphite</exclude>
+                  <exclude>*:metrics-json</exclude>
+                  <exclude>*:metrics-jvm</exclude>
+                  <exclude>*:minlog</exclude>
+                  <exclude>*:netty</exclude>
+                  <exclude>*:netty-all</exclude>
+                  <exclude>*:objenesis</exclude>
+                  <exclude>*:okhttp</exclude>
+                  <exclude>*:okio</exclude>
+                  <exclude>*:opencsv</exclude>
+                  <exclude>*:orc-core</exclude>
+                  <exclude>*:orc-mapreduce</exclude>
+                  <exclude>*:oro</exclude>
+                  <exclude>*:osgi-resource-locator</exclude>
+                  <exclude>*:paranamer</exclude>
+                  <exclude>*:protobuf-java</exclude>
+                  <exclude>*:py4j</exclude>
+                  <exclude>*:pyrolite</exclude>
+                  <exclude>*:scala-compiler</exclude>
+                  <exclude>*:scala-library</exclude>
+                  <exclude>*:scala-parser-combinators</exclude>
+                  <exclude>*:scala-reflect</exclude>
+                  <exclude>*:scala-xml_2.11</exclude>
+                  <exclude>*:scalap</exclude>
+                  <exclude>*:shapeless</exclude>
+                  <exclude>*:slf4j-api</exclude>
+                  <exclude>*:slf4j-log4j</exclude>
+                  <exclude>*:snakeyaml</exclude>
+                  <exclude>*:snappy</exclude>
+                  <exclude>*:snappy-java</exclude>
+                  <exclude>*:spire-macros</exclude>
+                  <exclude>*:spire</exclude>
+                  <exclude>*:stax-api</exclude>
+                  <exclude>*:stream</exclude>
+                  <exclude>*:stringtemplate</exclude>
+                  <exclude>*:super-csv</exclude>
+                  <exclude>*:univocity-parsers</exclude>
+                  <exclude>*:validation-api</exclude>
+                  <exclude>*:xbean-asm5-shaded</exclude>
+                  <exclude>*:xercesImpl</exclude>
+                  <exclude>*:xmlenc</exclude>
+                  <exclude>*:xz</exclude>
+                  <exclude>*:zjsonpatch</exclude>
+                  <exclude>*:zookeeper</exclude>
+                  <exclude>*:zstd-jni</exclude>
                   <exclude>junit:junit</exclude>
                   <exclude>jmock:*</exclude>
                   <exclude>*:xml-apis</exclude>
