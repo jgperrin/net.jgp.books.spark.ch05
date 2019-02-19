@@ -1,4 +1,4 @@
-package net.jgp.books.sparkWithJava.ch05.lab101.piComputeLambda;
+package net.jgp.books.spark.ch05.lab101_pi_compute_lambda;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 /**
- * Compute Pi.
+ * Computes Pi.
  * 
  * @author jgp
  */
@@ -58,7 +58,7 @@ public class PiComputeLambdaApp implements Serializable {
     System.out.println("Initial dataframe built in " + (t2 - t1) + " ms");
 
     Dataset<Integer> dotsDs = incrementalDf
-        .map((status) -> {
+        .map(status -> {
           double x = Math.random() * 2 - 1;
           double y = Math.random() * 2 - 1;
           counter++;
@@ -75,7 +75,8 @@ public class PiComputeLambdaApp implements Serializable {
     long t4 = System.currentTimeMillis();
     System.out.println("Analyzing result in " + (t4 - t3) + " ms");
 
-    System.out.println("Pi is roughly " + 4.0 * dartsInCircle / numberOfThrows);
+    System.out
+        .println("Pi is roughly " + 4.0 * dartsInCircle / numberOfThrows);
 
     spark.stop();
   }

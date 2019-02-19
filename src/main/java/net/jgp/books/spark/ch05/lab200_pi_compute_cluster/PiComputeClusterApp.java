@@ -1,4 +1,4 @@
-package net.jgp.books.sparkWithJava.ch05.lab100.piCompute;
+package net.jgp.books.spark.ch05.lab200_pi_compute_cluster;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,11 +12,13 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 /**
- * Compute Pi.
+ * Compute Pi on a cluster. 
+ * 
+ * It is not recommended to run this application from the IDE.
  * 
  * @author jgp
  */
-public class PiComputeApp implements Serializable {
+public class PiComputeClusterApp implements Serializable {
   private static final long serialVersionUID = -1546L;
   private static long counter = 0;
 
@@ -34,8 +36,8 @@ public class PiComputeApp implements Serializable {
       double x = Math.random() * 2 - 1;
       double y = Math.random() * 2 - 1;
       counter++;
-      if (counter % 100000 == 0) {
-        System.out.println("" + counter + " darts thrown so far");
+      if (counter % 1000 == 0) {
+        System.out.println("" + counter + " operations done so far");
       }
       return (x * x + y * y <= 1) ? 1 : 0;
     }
@@ -50,7 +52,7 @@ public class PiComputeApp implements Serializable {
     private static final long serialVersionUID = 12859L;
 
     @Override
-    public Integer call(Integer x, Integer y) throws Exception {
+    public Integer call(Integer x, Integer y) {
       return x + y;
     }
   }
@@ -61,7 +63,7 @@ public class PiComputeApp implements Serializable {
    * @param args
    */
   public static void main(String[] args) {
-    PiComputeApp app = new PiComputeApp();
+    PiComputeClusterApp app = new PiComputeClusterApp();
     app.start(10);
   }
 
@@ -74,10 +76,20 @@ public class PiComputeApp implements Serializable {
         + " darts, ready? Stay away from the target!");
 
     long t0 = System.currentTimeMillis();
-    SparkSession spark = SparkSession   
+    SparkSession spark = SparkSession
         .builder()
-        .appName("Spark Pi")
-        .master("local[*]")
+        .appName("JavaSparkPi on a cluster")
+        .master("spark://un:7077")
+        .config("spark.executor.memory", "4g")
+        // Uncomment the next block if you want to run your application from the
+        // IDE - note that you will have to deploy the jar first to *every*
+        // worker. Spark can share a jar from which it is launched - either via
+        // spark-submit or via a direct connection, but if you run this
+        // application from the IDE, it will not know what to do.
+        /*
+         * .config("spark.jars",
+         * "/home/jgp/.m2/repository/net/jgp/books/sparkWithJava-chapter05/1.0.0-SNAPSHOT/sparkWithJava-chapter05-1.0.0-SNAPSHOT.jar")
+         */
         .getOrCreate();
 
     long t1 = System.currentTimeMillis();

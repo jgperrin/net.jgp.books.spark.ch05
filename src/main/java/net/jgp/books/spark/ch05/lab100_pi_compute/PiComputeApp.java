@@ -1,4 +1,4 @@
-package net.jgp.books.sparkWithJava.ch05.lab210.piComputeClusterSubmitJob;
+package net.jgp.books.spark.ch05.lab100_pi_compute;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,13 +12,11 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 /**
- * Compute Pi on a cluster.
- * 
- * It is not recommended to run this application from the IDE.
+ * Computes Pi.
  * 
  * @author jgp
  */
-public class PiComputeClusterSubmitJobApp implements Serializable {
+public class PiComputeApp implements Serializable {
   private static final long serialVersionUID = -1546L;
   private static long counter = 0;
 
@@ -36,8 +34,8 @@ public class PiComputeClusterSubmitJobApp implements Serializable {
       double x = Math.random() * 2 - 1;
       double y = Math.random() * 2 - 1;
       counter++;
-      if (counter % 1000 == 0) {
-        System.out.println("" + counter + " operations done so far");
+      if (counter % 100000 == 0) {
+        System.out.println("" + counter + " darts thrown so far");
       }
       return (x * x + y * y <= 1) ? 1 : 0;
     }
@@ -52,7 +50,7 @@ public class PiComputeClusterSubmitJobApp implements Serializable {
     private static final long serialVersionUID = 12859L;
 
     @Override
-    public Integer call(Integer x, Integer y) throws Exception {
+    public Integer call(Integer x, Integer y) {
       return x + y;
     }
   }
@@ -63,8 +61,8 @@ public class PiComputeClusterSubmitJobApp implements Serializable {
    * @param args
    */
   public static void main(String[] args) {
-    PiComputeClusterSubmitJobApp app = new PiComputeClusterSubmitJobApp();
-    app.start(1);
+    PiComputeApp app = new PiComputeApp();
+    app.start(10);
   }
 
   /**
@@ -77,9 +75,9 @@ public class PiComputeClusterSubmitJobApp implements Serializable {
 
     long t0 = System.currentTimeMillis();
     SparkSession spark = SparkSession
-        .builder() // no master!
-        .appName("JavaSparkPi on a cluster (via spark-submit)")
-        .config("spark.executor.memory", "4g")
+        .builder()
+        .appName("Spark Pi")
+        .master("local[*]")
         .getOrCreate();
 
     long t1 = System.currentTimeMillis();
@@ -106,7 +104,8 @@ public class PiComputeClusterSubmitJobApp implements Serializable {
     long t4 = System.currentTimeMillis();
     System.out.println("Analyzing result in " + (t4 - t3) + " ms");
 
-    System.out.println("Pi is roughly " + 4.0 * dartsInCircle / numberOfThrows);
+    System.out
+        .println("Pi is roughly " + 4.0 * dartsInCircle / numberOfThrows);
 
     spark.stop();
   }
