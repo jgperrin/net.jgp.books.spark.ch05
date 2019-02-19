@@ -5,7 +5,7 @@ The examples in this repository are support to the **[Spark in Action, 2nd editi
 Welcome to Spark with Java, chapter 5. This chapter is about deployment of your application on a cluster. The example used here is the approximation of Pi.
 
 Notes: 
- 1. Due to renaming the packages to match more closely Java standards, this project is not in sync with MEAP prior to v10.
+ 1. Due to renaming the packages to match more closely Java standards, this project is not in sync with the book's MEAP prior to v10.
  1. This project is not compatible with Scala 2.12.
 
 ---
