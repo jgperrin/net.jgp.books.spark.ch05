@@ -12,7 +12,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 /**
- * Compute Pi on a cluster. 
+ * Compute Pi on a cluster.
  * 
  * It is not recommended to run this application from the IDE.
  * 
@@ -81,9 +81,11 @@ public class PiComputeClusterApp implements Serializable {
         .appName("JavaSparkPi on a cluster")
         .master("spark://un:7077")
         .config("spark.executor.memory", "4g")
-        // Uncomment the next block if you want to run your application from the
+        // Uncomment the next block if you want to run your application from
+        // the
         // IDE - note that you will have to deploy the jar first to *every*
-        // worker. Spark can share a jar from which it is launched - either via
+        // worker. Spark can share a jar from which it is launched - either
+        // via
         // spark-submit or via a direct connection, but if you run this
         // application from the IDE, it will not know what to do.
         /*
@@ -116,7 +118,8 @@ public class PiComputeClusterApp implements Serializable {
     long t4 = System.currentTimeMillis();
     System.out.println("Analyzing result in " + (t4 - t3) + " ms");
 
-    System.out.println("Pi is roughly " + 4.0 * dartsInCircle / numberOfThrows);
+    System.out
+        .println("Pi is roughly " + 4.0 * dartsInCircle / numberOfThrows);
 
     spark.stop();
   }
