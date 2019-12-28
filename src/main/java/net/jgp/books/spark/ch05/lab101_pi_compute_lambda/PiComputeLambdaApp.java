@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.spark.api.java.function.MapFunction;
+import org.apache.spark.api.java.function.ReduceFunction;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
@@ -58,7 +60,7 @@ public class PiComputeLambdaApp implements Serializable {
     System.out.println("Initial dataframe built in " + (t2 - t1) + " ms");
 
     Dataset<Integer> dotsDs = incrementalDf
-        .map(status -> {
+        .map((MapFunction<Row, Integer>) status -> {
           double x = Math.random() * 2 - 1;
           double y = Math.random() * 2 - 1;
           counter++;
@@ -71,12 +73,13 @@ public class PiComputeLambdaApp implements Serializable {
     long t3 = System.currentTimeMillis();
     System.out.println("Throwing darts done in " + (t3 - t2) + " ms");
 
-    // int dartsInCircle = dotsDs.reduce((x, y) -> x + y);
-    // long t4 = System.currentTimeMillis();
-    // System.out.println("Analyzing result in " + (t4 - t3) + " ms");
-    //
-    // System.out
-    // .println("Pi is roughly " + 4.0 * dartsInCircle / numberOfThrows);
+    int dartsInCircle =
+        dotsDs.reduce((ReduceFunction<Integer>) (x, y) -> x + y);
+    long t4 = System.currentTimeMillis();
+    System.out.println("Analyzing result in " + (t4 - t3) + " ms");
+
+    System.out
+        .println("Pi is roughly " + 4.0 * dartsInCircle / numberOfThrows);
 
     spark.stop();
   }
