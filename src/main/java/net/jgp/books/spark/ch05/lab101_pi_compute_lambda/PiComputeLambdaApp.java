@@ -71,12 +71,12 @@ public class PiComputeLambdaApp implements Serializable {
     long t3 = System.currentTimeMillis();
     System.out.println("Throwing darts done in " + (t3 - t2) + " ms");
 
-    int dartsInCircle = dotsDs.reduce((x, y) -> x + y);
-    long t4 = System.currentTimeMillis();
-    System.out.println("Analyzing result in " + (t4 - t3) + " ms");
-
-    System.out
-        .println("Pi is roughly " + 4.0 * dartsInCircle / numberOfThrows);
+    // int dartsInCircle = dotsDs.reduce((x, y) -> x + y);
+    // long t4 = System.currentTimeMillis();
+    // System.out.println("Analyzing result in " + (t4 - t3) + " ms");
+    //
+    // System.out
+    // .println("Pi is roughly " + 4.0 * dartsInCircle / numberOfThrows);
 
     spark.stop();
   }
