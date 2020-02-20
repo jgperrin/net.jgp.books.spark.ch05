@@ -26,3 +26,9 @@ hs_err_pid*
 /.settings/
 /bin/
 /.pydevproject
+*.DS_Store
+.idea/*
+*.iml
+target/*
+project/target/*
+project/project/*
