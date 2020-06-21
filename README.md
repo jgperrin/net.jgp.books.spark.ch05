@@ -6,6 +6,8 @@ Welcome to Spark with Java, chapter 5. This chapter is about deployment of your 
 
 The example used here is the approximation of Pi.
 
+This code is designed to work with Apache Spark v3.0.0.
+
 ## Lab
 
 Each chapter has one or more labs. Labs are examples used for teaching in the book(https://www.manning.com/books/spark-in-action-second-edition?a_aid=jgp). You are encouraged to take ownership of the code and modify it, experiment with it, hence the use of the term **lab**.
