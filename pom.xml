@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>net.jgp.books</groupId>
-  <artifactId>spark-chapter05</artifactId>
+  <artifactId>spark-in-action2-chapter05</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
